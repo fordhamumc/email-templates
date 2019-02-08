@@ -1,10 +1,13 @@
-import { Component, Fragment } from "react";
+import { Fragment, FunctionComponent } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS as scSecrets } from "styled-components";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
 import juice from "juice";
+import { html } from "js-beautify";
 import { ReactElementLike } from "prop-types";
+import emailTemplate from "../components/emailTemplate";
+// @ts-ignore
+import { __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS as scSecrets } from "styled-components";
 
 interface Props {
   children: ReactElementLike;
@@ -15,34 +18,27 @@ const syntaxStyle = {
   background: "transparent",
   height: "100%",
   margin: 0,
-  padding: 0
+  padding: 0,
+  whiteSpace: "pre-wrap"
 };
 
-class Code extends Component<Props> {
-  render() {
-    StyleSheet.reset(true);
-    const code = renderToStaticMarkup(this.props.children);
-    const styleTags = StyleSheet.master.toHTML();
-    StyleSheet.reset(false);
-    const html = `<!doctype html>
-<html>
-  <head>${styleTags}</head>
-  <body>
-    ${code}
-  </body>
-</html>`;
-    return (
-      <Fragment>
-        <SyntaxHighlighter
-          language="html"
-          style={monokai}
-          customStyle={syntaxStyle}
-        >
-          {juice(html)}
-        </SyntaxHighlighter>
-      </Fragment>
-    );
-  }
-}
+const Code: FunctionComponent<Props> = props => {
+  StyleSheet.reset(true);
+  const code = renderToStaticMarkup(props.children);
+  const styleTags = StyleSheet.master.toHTML();
+  StyleSheet.reset(false);
+  return (
+    <Fragment>
+      <SyntaxHighlighter
+        language="html"
+        style={monokai}
+        customStyle={syntaxStyle}
+        wrapLines={true}
+      >
+        {html(juice(emailTemplate(styleTags, code)))}
+      </SyntaxHighlighter>
+    </Fragment>
+  );
+};
 
 export default Code;

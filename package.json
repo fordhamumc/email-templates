@@ -11,6 +11,7 @@
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
     "express": "^4.16.4",
+    "js-beautify": "^1.8.9",
     "juice": "^5.1.0",
     "next": "^7.0.2",
     "react": "^16.7.0",
@@ -22,6 +23,7 @@
     "@types/next": "^7.0.6",
     "@types/react": "^16.7.21",
     "@types/react-dom": "^16.0.11",
+    "@types/styled-components": "^4.1.8",
     "babel-plugin-styled-components": "^1.8.0",
     "prettier": "^1.16.1",
     "typescript": "^3.2.4"
