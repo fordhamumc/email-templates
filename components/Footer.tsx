@@ -1,6 +1,6 @@
 import React, { FunctionComponent, HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
-import { Break, BreakSm } from "./Breaks";
+import Break from "./Break";
 import { Container } from "./Container";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -51,7 +51,7 @@ const GetFooterLogo = (
 };
 const Footer: FunctionComponent<Props> = ({
   name = "Fordham University",
-  tagline = "The Jesuit University of New York",
+  tagline = "The Jesuit University of New\u00A0York",
   logoUrl,
   logoWidth,
   address = "441 East Fordham Road | Bronx, NY 10458",
@@ -62,9 +62,9 @@ const Footer: FunctionComponent<Props> = ({
     <FooterBar>&nbsp;</FooterBar>
     <FooterLogo>{GetFooterLogo(name, logoUrl, logoWidth)}</FooterLogo>
     <FooterTagline>{tagline}</FooterTagline>
-    <BreakSm />
+    <Break className="small" />
     <FooterAddress>{address}</FooterAddress>
-    <Break />
+    <Break className="small" />
   </Container>
 );
 

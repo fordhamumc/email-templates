@@ -16,6 +16,72 @@ const emailTemplate = (
     <link href="https://use.typekit.net/hsy3jdx.css" rel="stylesheet" type="text/css" />
     <!--<![endif]--> 
     ${styles}
+    <style data-embed>
+      #outlook a {
+        padding: 0;
+      }
+
+      .ReadMsgBody {
+        width: 100%;
+      }
+
+      .ExternalClass {
+        width: 100%;
+      }
+
+      .ExternalClass * {
+        line-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+
+      table,
+      td {
+        border-collapse: collapse;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        max-width: 100%;
+        outline: none;
+        text-decoration: none;
+        -ms-interpolation-mode: bicubic;
+      }
+      p {
+        display: block;
+        Margin: 0 0 18px 0; 
+      }
+      ul {
+        Margin-top:0;
+        Margin-bottom:0;
+        padding-bottom: 8px;
+      }
+      li {
+        Margin-bottom: 10px;
+      }
+      a {
+        color: #900028 !important;
+        text-decoration: none;
+        font-family: 'Soleil', Arial, sans-serif;
+      }
+      .address a {
+        color: #594f51 !important;
+        text-decoration: none;
+        font-family: 'leitura roman', Palatino, 'Palatino Linotype', 'Palatino LT STD', Georgia, serif;
+      }
+      .button {
+        color: #ffffff !important;
+      }
+    </style>
     <!--[if mso]>
     <xml>
     <o:OfficeDocumentSettings>

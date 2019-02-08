@@ -9,6 +9,9 @@ import emailTemplate from "../components/emailTemplate";
 // @ts-ignore
 import { __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS as scSecrets } from "styled-components";
 
+// @ts-ignore
+juice.nonVisualElements = ["P", "UL", "LI"];
+
 interface Props {
   children: ReactElementLike;
 }

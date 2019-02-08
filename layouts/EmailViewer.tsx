@@ -7,10 +7,10 @@ const Section = styled.section`
   box-sizing: border-box;
   padding: 1.5rem 1rem;
   overflow-y: auto;
-  height: calc(50vh - 0.5rem - 0.6em);
+  height: calc(50vh - 0.5rem - 0.7em);
 
   @media (min-width: 60rem) {
-    height: calc(100vh - 1rem - 1.2em);
+    height: calc(100vh - 1rem - 1.4em);
   }
 `;
 

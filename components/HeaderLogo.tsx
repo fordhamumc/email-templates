@@ -1,9 +1,7 @@
 import React, { FunctionComponent, HTMLAttributes } from "react";
 import styled from "styled-components";
-import { BreakSm } from "./Breaks";
-import { GlobalInner } from "./Container";
-import { IeContainer } from "./Ie";
-import sizes from "./sizes";
+import Break from "./Break";
+import { GlobalInner, IeContainer } from "./Container";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   src: string;
@@ -20,19 +18,17 @@ const HeaderLogo: FunctionComponent<Props> = ({
   alt,
   width,
   ...props
-}) => {
-  return (
-    <Header role="banner" {...props}>
-      <IeContainer width={sizes.innerWidth}>
-        <GlobalInner />
-        <BreakSm />
-        <h1 className="inner">
-          <img src={src} alt={alt} width={width} />
-        </h1>
-        <BreakSm />
-      </IeContainer>
-    </Header>
-  );
-};
+}) => (
+  <Header role="banner" {...props}>
+    <IeContainer>
+      <GlobalInner />
+      <Break className="small" />
+      <h1 className="inner">
+        <img src={src} alt={alt} width={width} />
+      </h1>
+      <Break className="small" />
+    </IeContainer>
+  </Header>
+);
 
 export default HeaderLogo;

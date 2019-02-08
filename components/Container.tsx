@@ -1,6 +1,5 @@
-import React, { FunctionComponent } from "react";
+import React, { Fragment, FunctionComponent } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { IeContainer } from "./Ie";
 import sizes from "./sizes";
 
 const GlobalScaffold = createGlobalStyle`
@@ -23,11 +22,29 @@ const GlobalScaffold = createGlobalStyle`
     font-size: 16px;
   }
   img {
+    border: 0;
+    height: auto;
+    line-height: 100%;
     max-width: 100%;
+    outline: none;
+    text-decoration: none;
+    -ms-interpolation-mode: bicubic;
   }
   ul {
     Margin-top:0;
     Margin-bottom:0;
+    padding-bottom: 8px;
+  }
+  li {
+    Margin-bottom: 10px;
+  }
+  p {
+    Margin: 0 0 18px 0; 
+  }
+  a {
+    color: #900028;
+    text-decoration: none;
+    font-family: 'Soleil', Arial, sans-serif;
   }
 `;
 
@@ -38,6 +55,29 @@ const GlobalInner = createGlobalStyle`
     padding: 0 15px;
   }
 `;
+
+interface Props {
+  width?: number | string;
+}
+
+const IeContainer: FunctionComponent<Props> = ({
+  width = sizes.innerWidth,
+  children
+}) => (
+  <Fragment>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="width:${width}px;" width="${width}"><tr><td style="font-size: 0;line-height: 0;mso-line-height-rule:exactly;"><div><![endif]-->`
+      }}
+    />
+    {children}
+    <div
+      dangerouslySetInnerHTML={{
+        __html: `<!--[if mso | IE]></div></td></tr></table><![endif]-->`
+      }}
+    />
+  </Fragment>
+);
 
 const ContainerStyles = styled.div`
   color: #231f20;
@@ -57,10 +97,10 @@ const ContainerStyles = styled.div`
 
 const Container: FunctionComponent = ({ children }) => {
   return (
-    <IeContainer>
+    <IeContainer width={sizes.innerWidth + sizes.gutter * 2}>
       <ContainerStyles>{children}</ContainerStyles>
     </IeContainer>
   );
 };
 
-export { Container, GlobalScaffold, GlobalInner };
+export { Container, IeContainer, GlobalScaffold, GlobalInner };

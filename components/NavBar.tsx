@@ -17,18 +17,16 @@ const NavList = styled.ul`
   justify-content: center;
 `;
 
-const NavBar = () => {
-  return (
-    <React.Fragment>
-      <Header>
-        <nav aria-label="Main Navigation">
-          <NavList>
-            <NavItem href="/">Home</NavItem>
-            <NavItem href="/example">Email Example</NavItem>
-          </NavList>
-        </nav>
-      </Header>
-    </React.Fragment>
-  );
-};
+const NavBar = () => (
+  <React.Fragment>
+    <Header>
+      <nav aria-label="Main Navigation">
+        <NavList>
+          <NavItem href="/">Home</NavItem>
+          <NavItem href="/example">Email Example</NavItem>
+        </NavList>
+      </nav>
+    </Header>
+  </React.Fragment>
+);
 export default NavBar;

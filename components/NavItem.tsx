@@ -2,6 +2,10 @@ import colors from "../layouts/colors";
 import Link from "next/link";
 import styled from "styled-components";
 
+const LI = styled.li`
+  margin: 0;
+`;
+
 const A = styled.a`
   color: ${colors.textalt};
   display: inline-block;
@@ -14,13 +18,11 @@ const A = styled.a`
   }
 `;
 
-const NavItem = props => {
-  return (
-    <li>
-      <Link href={props.href}>
-        <A>{props.children}</A>
-      </Link>
-    </li>
-  );
-};
+const NavItem = props => (
+  <LI>
+    <Link href={props.href}>
+      <A>{props.children}</A>
+    </Link>
+  </LI>
+);
 export default NavItem;
