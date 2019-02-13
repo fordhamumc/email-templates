@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import fonts from "./fonts";
 
 const Button = styled.a.attrs({
   className: "button"
@@ -9,7 +10,7 @@ const Button = styled.a.attrs({
   border-width: 9px 30px;
   box-shadow: 4px 4px 0 0px #8e8083;
   color: #ffffff;
-  font-family: "Soleil", Arial, sans-serif;
+  font-family: ${fonts.link};
   font-size: 1.1em;
   line-height: 1.3;
   font-weight: 700;

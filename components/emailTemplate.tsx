@@ -1,8 +1,12 @@
-const emailTemplate = (
-  styles: string,
-  html: string,
-  title?: string
-): string => {
+import fonts from "./fonts";
+
+interface Props {
+  styles: string;
+  html: string;
+  title?: string;
+}
+
+const emailTemplate = ({ styles, html, title }: Props) => {
   const titleTag = title ? `<title>${title}</title>\n    ` : "";
 
   return `<!doctype html>
@@ -71,12 +75,12 @@ const emailTemplate = (
       a {
         color: #900028 !important;
         text-decoration: none;
-        font-family: 'Soleil', Arial, sans-serif;
+        font-family: ${fonts.link};
       }
       .address a {
         color: #594f51 !important;
         text-decoration: none;
-        font-family: 'leitura roman', Palatino, 'Palatino Linotype', 'Palatino LT STD', Georgia, serif;
+        font-family: ${fonts.text};
       }
       .button {
         color: #ffffff !important;

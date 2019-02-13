@@ -1,5 +1,5 @@
 import React from "react";
-import colors from "../layouts/colors";
+import colors from "./colors";
 import NavItem from "./NavItem";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ const NavBar = () => (
       <nav aria-label="Main Navigation">
         <NavList>
           <NavItem href="/">Home</NavItem>
-          <NavItem href="/example">Email Example</NavItem>
+          <NavItem href="/example">Watson Template</NavItem>
         </NavList>
       </nav>
     </Header>

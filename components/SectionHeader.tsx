@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import fonts from "./fonts";
 
 const SectionHeader = styled.h2`
   color: #900028;
-  font-family: "Arial Narrow", "Roboto", sans-serif;
+  font-family: ${fonts.heading};
   font-size: 1.3em;
   font-weight: 700;
   line-height: 1.2;

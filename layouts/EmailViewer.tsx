@@ -4,13 +4,13 @@ import Code from "../components/Code";
 import styled from "styled-components";
 
 const Section = styled.section`
-  box-sizing: border-box;
+  box-sizing: initial;
   padding: 1.5rem 1rem;
   overflow-y: auto;
-  height: calc(50vh - 0.5rem - 0.7em);
+  height: calc(50vh - 3.5rem - 0.7em);
 
   @media (min-width: 60rem) {
-    height: calc(100vh - 1rem - 1.4em);
+    height: calc(100vh - 4rem - 1.4em);
   }
 `;
 

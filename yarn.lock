@@ -2014,6 +2014,11 @@ css-what@2.1:
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.2.tgz#c0876d9d0480927d7d4920dcd72af3595649554d"
   integrity sha512-wan8dMWQ0GUeF7DGEPVjhHemVW/vy6xUYmFzRY8RYqgA0JtXC9rJmbScBjqSu6dg9q0lwPQy6ZAmJVr3PPTvqQ==
 
+cssom@^0.3.2:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.6.tgz#f85206cee04efa841f3c5982a74ba96ab20d65ad"
+  integrity sha512-DtUeseGk9/GBW0hl0vVPpU22iHL6YB5BUX7ml1hB+GMpo0NX5G4voX3kdWiMSEguFtcW3Vh3djqNF4aIe6ne0A==
+
 csstype@^2.2.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.1.tgz#4cfbf637a577497036ebcd7e32647ef19a0b8076"
@@ -2065,6 +2070,14 @@ debug@^4.1.0:
   integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
   dependencies:
     ms "^2.1.1"
+
+declassify@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/declassify/-/declassify-2.1.0.tgz#bbe1961cb4209001a8a8c282effad52e24f18051"
+  integrity sha512-CeGkYIjPAJpbc9vgb3U5DPfcdLYBjrXxlE5EORs7CopEeEW2UGMthD77yFTibhb6SkI5KiFekVk0vR0LYJ2Y/g==
+  dependencies:
+    cheerio "^0.22.0"
+    cssom "^0.3.2"
 
 decode-uri-component@^0.2.0:
   version "0.2.0"

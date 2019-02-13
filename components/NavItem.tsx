@@ -1,4 +1,4 @@
-import colors from "../layouts/colors";
+import colors from "./colors";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -18,10 +18,10 @@ const A = styled.a`
   }
 `;
 
-const NavItem = props => (
+const NavItem = ({ children, ...props }) => (
   <LI>
-    <Link href={props.href}>
-      <A>{props.children}</A>
+    <Link {...props} passHref>
+      <A>{children}</A>
     </Link>
   </LI>
 );

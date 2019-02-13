@@ -1,6 +1,7 @@
 import React, { Fragment, FunctionComponent } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import sizes from "./sizes";
+import fonts from "./fonts";
 
 const GlobalScaffold = createGlobalStyle`
   @font-face {
@@ -20,6 +21,8 @@ const GlobalScaffold = createGlobalStyle`
   .body {
 	  background-color:#ffffff;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
   }
   img {
     border: 0;
@@ -44,13 +47,13 @@ const GlobalScaffold = createGlobalStyle`
   a {
     color: #900028;
     text-decoration: none;
-    font-family: 'Soleil', Arial, sans-serif;
+    font-family: ${fonts.link};
   }
 `;
 
 const GlobalInner = createGlobalStyle`
   .inner {
-    Margin: 0 auto;
+    margin: 0 auto;
 	  max-width: ${sizes.innerWidth}px;
     padding: 0 15px;
   }
@@ -81,13 +84,12 @@ const IeContainer: FunctionComponent<Props> = ({
 
 const ContainerStyles = styled.div`
   color: #231f20;
-  font-family: "leitura roman", Palatino, "Palatino Linotype", "Palatino LT STD",
-    Georgia, serif;
+  font-family: ${fonts.text};
   font-size: 17px;
   font-weight: 400;
   line-height: 1.6;
   margin: 0 auto;
-  max-width: ${sizes.innerWidth + sizes.gutter * 2}px;
+  max-width: ${sizes.outerWidth}px;
 
   @media screen and (max-width: 440px) {
     font-size: 16px !important;
@@ -97,7 +99,7 @@ const ContainerStyles = styled.div`
 
 const Container: FunctionComponent = ({ children }) => {
   return (
-    <IeContainer width={sizes.innerWidth + sizes.gutter * 2}>
+    <IeContainer width={sizes.outerWidth}>
       <ContainerStyles>{children}</ContainerStyles>
     </IeContainer>
   );

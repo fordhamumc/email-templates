@@ -2,6 +2,7 @@ import React, { FunctionComponent, HTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 import Break from "./Break";
 import { Container } from "./Container";
+import fonts from "./fonts";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   name?: string;
@@ -25,7 +26,7 @@ const FooterLogo = styled.div`
 `;
 
 const FooterTagline = styled.div`
-  font-family: "Soleil", Arial, sans-serif;
+  font-family: ${fonts.text};
   font-size: 0.8em;
   letter-spacing: 0.15em;
   text-align: center;
@@ -58,13 +59,13 @@ const Footer: FunctionComponent<Props> = ({
   ...props
 }) => (
   <Container {...props}>
-    <Break />
+    <Break className="large" />
     <FooterBar>&nbsp;</FooterBar>
     <FooterLogo>{GetFooterLogo(name, logoUrl, logoWidth)}</FooterLogo>
     <FooterTagline>{tagline}</FooterTagline>
     <Break className="small" />
     <FooterAddress>{address}</FooterAddress>
-    <Break className="small" />
+    <Break className="large" />
   </Container>
 );
 

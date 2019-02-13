@@ -13,6 +13,10 @@ const Header = styled.div`
   border-bottom: 5px solid #900028;
 `;
 
+const HeaderH1 = styled.h1`
+  text-align: center;
+`;
+
 const HeaderLogo: FunctionComponent<Props> = ({
   src,
   alt,
@@ -23,9 +27,9 @@ const HeaderLogo: FunctionComponent<Props> = ({
     <IeContainer>
       <GlobalInner />
       <Break className="small" />
-      <h1 className="inner">
+      <HeaderH1 className="inner">
         <img src={src} alt={alt} width={width} />
-      </h1>
+      </HeaderH1>
       <Break className="small" />
     </IeContainer>
   </Header>
