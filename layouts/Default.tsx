@@ -1,6 +1,10 @@
-import React from "react";
+import React, { FunctionComponent, HTMLAttributes } from "react";
 import NavBar from "../components/NavBar";
 import styled, { createGlobalStyle } from "styled-components";
+
+interface Props {
+  codeOpen: boolean;
+}
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,18 +20,24 @@ const GlobalStyle = createGlobalStyle`
 
 const Main = styled.main`
   &.grid {
-    display: grid;
-
     @media (min-width: 60rem) {
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+
+      section {
+        flex: 1;
+      }
     }
   }
 `;
 
-const Layout = props => (
+const Layout: FunctionComponent<Props & HTMLAttributes<HTMLMainElement>> = ({
+  children,
+  codeOpen = true,
+  ...props
+}) => (
   <React.Fragment>
-    <NavBar />
-    <Main className={props.className}>{props.children}</Main>
+    {codeOpen && <NavBar />}
+    <Main {...props}>{children}</Main>
     <GlobalStyle />
   </React.Fragment>
 );

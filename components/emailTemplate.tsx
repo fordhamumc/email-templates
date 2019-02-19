@@ -17,7 +17,7 @@ const emailTemplate = ({ styles, html, title }: Props) => {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if !mso]><!-- -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://use.typekit.net/hsy3jdx.css" rel="stylesheet" type="text/css" />
+    <link href="https://use.typekit.net/kfw1and.css" rel="stylesheet" type="text/css" />
     <!--<![endif]--> 
     ${styles}
     <style data-embed>
@@ -77,13 +77,45 @@ const emailTemplate = ({ styles, html, title }: Props) => {
         text-decoration: none;
         font-family: ${fonts.link};
       }
-      .address a {
+      .footer a {
+        color: #231f20 !important
+        text-decoration: none;
+        font-family: ${fonts.text};
+      }
+      .footer-tagline a {
+        color: #231f20 !important
+        text-decoration: none;
+        font-family: ${fonts.link};
+      }
+      .footer-address a {
         color: #594f51 !important;
         text-decoration: none;
         font-family: ${fonts.text};
       }
       .button {
         color: #ffffff !important;
+      }
+    </style>
+    <style data-embed>
+		  a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+		  
+		  u + .body a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+      @media only screen and (max-width: 480px) {
+        u ~ .body { min-width: 100vw; }
       }
     </style>
     <!--[if mso]>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import sizes from "./sizes";
 
 const Break = styled.div.attrs({
-  children: "\u00A0"
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
 })`
   line-height: ${sizes.break}px;
   &.small {

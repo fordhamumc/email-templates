@@ -17,6 +17,7 @@
     "next": "^7.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-simple-storage": "^1.4.1",
     "react-syntax-highlighter": "^10.1.2",
     "styled-components": "^4.0.0"
   },

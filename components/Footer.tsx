@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Break from "./Break";
 import { Container } from "./Container";
 import fonts from "./fonts";
+import colors from "./colors";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   name?: string;
@@ -12,7 +13,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   address?: string;
 }
 
-const FooterBar = styled.div`
+const FooterBar = styled.div.attrs({
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
+})`
   border-top: 25px solid #900028;
   line-height: 25px;
 `;
@@ -23,10 +26,14 @@ const FooterLogo = styled.div`
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
+
+  @media (max-width: 440px) {
+    font-size: 1.7em !important;
+  }
 `;
 
 const FooterTagline = styled.div`
-  font-family: ${fonts.text};
+  font-family: ${fonts.link};
   font-size: 0.8em;
   letter-spacing: 0.15em;
   text-align: center;
@@ -34,7 +41,7 @@ const FooterTagline = styled.div`
 `;
 
 const FooterAddress = styled.div`
-  color: #594f51;
+  color: ${colors.light};
   text-align: center;
   font-size: 0.9em;
 `;
@@ -58,13 +65,13 @@ const Footer: FunctionComponent<Props> = ({
   address = "441 East Fordham Road | Bronx, NY 10458",
   ...props
 }) => (
-  <Container {...props}>
+  <Container {...props} className="footer">
     <Break className="large" />
-    <FooterBar>&nbsp;</FooterBar>
+    <FooterBar />
     <FooterLogo>{GetFooterLogo(name, logoUrl, logoWidth)}</FooterLogo>
-    <FooterTagline>{tagline}</FooterTagline>
+    <FooterTagline className="footer-tagline">{tagline}</FooterTagline>
     <Break className="small" />
-    <FooterAddress>{address}</FooterAddress>
+    <FooterAddress className="footer-address">{address}</FooterAddress>
     <Break className="large" />
   </Container>
 );

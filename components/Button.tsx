@@ -13,7 +13,7 @@ const Button = styled.a.attrs({
   font-family: ${fonts.link};
   font-size: 1.1em;
   line-height: 1.3;
-  font-weight: 700;
+  font-weight: 600;
   margin: 5px 0;
   text-align: center;
   text-decoration: none;

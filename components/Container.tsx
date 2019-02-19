@@ -1,4 +1,4 @@
-import React, { Fragment, FunctionComponent } from "react";
+import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import sizes from "./sizes";
 import fonts from "./fonts";
@@ -23,6 +23,9 @@ const GlobalScaffold = createGlobalStyle`
     font-size: 16px;
     margin: 0;
     padding: 0;
+  }
+  td {
+    font-family: ${fonts.text};
   }
   img {
     border: 0;
@@ -97,10 +100,13 @@ const ContainerStyles = styled.div`
   }
 `;
 
-const Container: FunctionComponent = ({ children }) => {
+const Container: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  ...props
+}) => {
   return (
     <IeContainer width={sizes.outerWidth}>
-      <ContainerStyles>{children}</ContainerStyles>
+      <ContainerStyles {...props}>{children}</ContainerStyles>
     </IeContainer>
   );
 };

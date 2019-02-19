@@ -1,6 +1,6 @@
 export default {
-  outerWidth: 720,
-  innerWidth: 630,
+  outerWidth: 800,
+  innerWidth: 720,
   gutter: 32,
   break: 25,
   breakSm: 20,

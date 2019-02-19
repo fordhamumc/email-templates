@@ -1,44 +1,37 @@
 import React, { Fragment } from "react";
 import EmailViewer from "../layouts/EmailViewer";
-import HeaderLogo from "../components/HeaderLogo";
+import Header from "../components/Header";
 import { Container, GlobalScaffold } from "../components/Container";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Break from "../components/Break";
 import SectionHeader from "../components/SectionHeader";
 import Lead from "../components/Lead";
-import Title from "../components/Title";
-import { Date, Location } from "../components/DateLocation";
-import { ImageFull } from "../components/Images";
+import { Title } from "../components/Titles";
+import DateLocation from "../components/DateLocation";
+import { ImageFull, ImageLeft, ImageRight } from "../components/Images";
 import Article from "../components/Article";
-import {
-  Column,
-  ImageLeft,
-  ImageRight,
-  TwoColumn
-} from "../components/Contents";
+import { Column, TwoColumn } from "../components/Contents";
 
 export default () => (
   <EmailViewer>
     <Fragment>
       <GlobalScaffold />
-      <HeaderLogo
-        src="/static/gabelli.png"
+      <Header
+        src="https://litmus-builder.s3.amazonaws.com/1531253906570"
         alt="Fordham University"
         width="200"
-      />
+      >
+        Office of the President
+      </Header>
       <Container>
         <Break className="large" />
         <div className="inner">
           <Title>This Is The Title</Title>
-          <Date>Wednesday, February 13 at 6 p.m.</Date>
-          <Location>
+          <DateLocation date="Wednesday, February 13 at 6 p.m.">
             Costantino Room | School of Law | Lincoln Center Campus
-          </Location>
-          <ImageFull
-            src="https://litmus-builder.s3.amazonaws.com/1531324605784"
-            alt=""
-          />
+          </DateLocation>
+          <ImageFull src="https://placehold.it/1080x675" alt="" />
           <Lead>
             This is a lead content section. It's optional and should only be
             used for the first paragraph. If the user only reads this paragraph
@@ -54,7 +47,7 @@ export default () => (
           <SectionHeader>Section Header</SectionHeader>
           <Article
             title="Title for a News Article with an Image"
-            imageUrl="https://placehold.it/600x400"
+            imageUrl="https://placehold.it/600x375"
             alt="s"
             link="https://fordham.edu"
           >
@@ -65,7 +58,7 @@ export default () => (
           </Article>
           <Article
             title="Title for a News Article with an Image"
-            imageUrl="https://placehold.it/600x400"
+            imageUrl="https://placehold.it/600x375"
             alt="s"
             link="https://fordham.edu"
           >
@@ -76,7 +69,7 @@ export default () => (
           </Article>
           <Article
             title="Title for a News Article with an Image"
-            imageUrl="https://placehold.it/600x400"
+            imageUrl="https://placehold.it/600x375"
             alt="s"
             link="https://fordham.edu"
           >
@@ -98,7 +91,7 @@ export default () => (
 
           <TwoColumn>
             <Column
-              imageUrl="https://placehold.it/600x400"
+              imageUrl="https://placehold.it/600x375"
               alt="s"
               title="Column 1 Title"
             >
@@ -109,7 +102,7 @@ export default () => (
               </p>
             </Column>
             <Column
-              imageUrl="https://placehold.it/600x400"
+              imageUrl="https://placehold.it/600x375"
               link="http://fordham.edu"
               alt="s"
               title="Column 2 Title"
@@ -122,11 +115,7 @@ export default () => (
             </Column>
           </TwoColumn>
 
-          <ImageLeft
-            imageUrl="https://placehold.it/600x400"
-            link="http://fordham.edu"
-            alt="s"
-          >
+          <ImageLeft src="https://placehold.it/600x375" alt="s">
             <p>
               This is some test content. It's just a test to evaluate the look
               and feel of typeset text. Replace this text with your content.
@@ -139,11 +128,7 @@ export default () => (
             </p>
           </ImageLeft>
 
-          <ImageRight
-            imageUrl="https://placehold.it/600x400"
-            link="http://fordham.edu"
-            alt="s"
-          >
+          <ImageRight src="https://placehold.it/600x375" alt="s">
             <p>
               This is some test content. It's just a test to evaluate the look
               and feel of typeset text. Replace this text with your content.

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import colors from "./colors";
 import NavItem from "./NavItem";
 import styled from "styled-components";
@@ -17,16 +17,18 @@ const NavList = styled.ul`
   justify-content: center;
 `;
 
-const NavBar = () => (
-  <React.Fragment>
-    <Header>
-      <nav aria-label="Main Navigation">
-        <NavList>
-          <NavItem href="/">Home</NavItem>
-          <NavItem href="/example">Watson Template</NavItem>
-        </NavList>
-      </nav>
-    </Header>
-  </React.Fragment>
-);
+class NavBar extends Component {
+  public render() {
+    return (
+      <Header>
+        <nav aria-label="Main Navigation">
+          <NavList>
+            <NavItem href="/">Home</NavItem>
+            <NavItem href="/watson">Watson Template</NavItem>
+          </NavList>
+        </nav>
+      </Header>
+    );
+  }
+}
 export default NavBar;
