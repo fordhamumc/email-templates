@@ -11,7 +11,7 @@ const TitleStyle = styled.h1`
   color: ${colors.primary};
   font-family: ${fonts.heading};
   font-size: 3.7em;
-  font-weight: 600;
+  font-weight: bold;
   line-height: 1.2;
   margin: 0;
 
@@ -22,7 +22,7 @@ const TitleStyle = styled.h1`
 const TitleArticleStyle = styled.h3`
   font-family: ${fonts.link};
   font-size: 1.15em;
-  font-weight: 600;
+  font-weight: bold;
   line-height: 1.3;
   margin: 0;
   padding-bottom: 5px;

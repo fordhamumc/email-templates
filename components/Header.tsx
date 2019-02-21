@@ -44,7 +44,7 @@ const Department = styled.td`
   color: ${colors.light};
   font-family: ${fonts.link};
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: bold;
   letter-spacing: 0.4em;
   text-align: right;
   text-transform: uppercase;

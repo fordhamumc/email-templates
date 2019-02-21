@@ -12,6 +12,8 @@ import DateLocation from "../components/DateLocation";
 import { ImageFull, ImageLeft, ImageRight } from "../components/Images";
 import Article from "../components/Article";
 import { Column, TwoColumn } from "../components/Contents";
+import Grid from "../components/Grid";
+import Ad from "../components/Ad";
 
 export default () => (
   <EmailViewer>
@@ -141,6 +143,24 @@ export default () => (
             </p>
           </ImageRight>
           <Button href="http://fordham.edu">Call to Action</Button>
+          <Break />
+          <Grid
+            images={[
+              { src: "https://placehold.it/300x300", alt: "s" },
+              { src: "https://placehold.it/300x300", alt: "s" },
+              { src: "https://placehold.it/300x300", alt: "s" },
+              { src: "https://placehold.it/300x300", alt: "s" }
+            ]}
+          />
+          <Ad src="https://placehold.it/600x375" alt="s">
+            <p>
+              This is some ad text. This section can be used for sponsored
+              content or to highlight a separate event or initiative.
+            </p>
+            <a href="">
+              <strong>Call to Action</strong>
+            </a>
+          </Ad>
         </div>
       </Container>
       <Footer />

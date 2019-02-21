@@ -4,6 +4,7 @@ import Break from "./Break";
 import { Container } from "./Container";
 import fonts from "./fonts";
 import colors from "./colors";
+import sizes from "./sizes";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   name?: string;
@@ -65,7 +66,7 @@ const Footer: FunctionComponent<Props> = ({
   address = "441 East Fordham Road | Bronx, NY 10458",
   ...props
 }) => (
-  <Container {...props} className="footer">
+  <Container {...props} className="footer" width={sizes.outerWidth}>
     <Break className="large" />
     <FooterBar />
     <FooterLogo>{GetFooterLogo(name, logoUrl, logoWidth)}</FooterLogo>

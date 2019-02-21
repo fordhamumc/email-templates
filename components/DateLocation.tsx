@@ -10,7 +10,7 @@ interface Props {
 const Date = styled.div`
   font-family: ${fonts.heading};
   font-size: 1.7em;
-  font-weight: 600;
+  font-weight: bold;
   line-height: 1.3;
 
   @media (max-width: 440px) {

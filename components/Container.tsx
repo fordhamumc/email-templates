@@ -100,12 +100,13 @@ const ContainerStyles = styled.div`
   }
 `;
 
-const Container: FunctionComponent<HTMLAttributes<HTMLDivElement>> = ({
+const Container: FunctionComponent<Props & HTMLAttributes<HTMLDivElement>> = ({
   children,
+  width = sizes.innerWidth,
   ...props
 }) => {
   return (
-    <IeContainer width={sizes.outerWidth}>
+    <IeContainer width={width}>
       <ContainerStyles {...props}>{children}</ContainerStyles>
     </IeContainer>
   );
