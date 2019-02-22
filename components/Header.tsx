@@ -43,9 +43,9 @@ const HeaderTable = styled.table.attrs({
 const Department = styled.td`
   color: ${colors.light};
   font-family: ${fonts.link};
-  font-size: 0.8em;
+  font-size: 13px;
+  line-height: 1.6;
   font-weight: bold;
-  letter-spacing: 0.4em;
   text-align: right;
   text-transform: uppercase;
 
@@ -75,7 +75,11 @@ const HeaderLogo: FunctionComponent<Props> = ({
                   <img src={src} alt={alt} width={width} />
                 </h1>
               </td>
-              {children && <Department>{children}</Department>}
+              {children && (
+                <Department style={{ letterSpacing: "0.4em" }}>
+                  {children}
+                </Department>
+              )}
             </tr>
           </tbody>
         </HeaderTable>

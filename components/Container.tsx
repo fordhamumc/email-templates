@@ -24,9 +24,6 @@ const GlobalScaffold = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-  td {
-    font-family: ${fonts.text};
-  }
   img {
     border: 0;
     height: auto;
@@ -63,17 +60,17 @@ const GlobalInner = createGlobalStyle`
 `;
 
 interface Props {
-  width?: number | string;
+  maxWidth?: number | string;
 }
 
 const IeContainer: FunctionComponent<Props> = ({
-  width = sizes.innerWidth,
+  maxWidth = sizes.innerWidth,
   children
 }) => (
   <Fragment>
     <div
       dangerouslySetInnerHTML={{
-        __html: `<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="width:${width}px;" width="${width}"><tr><td style="font-size: 0;line-height: 0;mso-line-height-rule:exactly;"><div><![endif]-->`
+        __html: `<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="width:${maxWidth}px;" width="${maxWidth}"><tr><td style="font-size: 0;line-height: 0;mso-line-height-rule:exactly;"><div><![endif]-->`
       }}
     />
     {children}
@@ -92,9 +89,9 @@ const ContainerStyles = styled.div`
   font-weight: 400;
   line-height: 1.6;
   margin: 0 auto;
-  max-width: ${sizes.outerWidth}px;
+  ${({ maxWidth }: Props) => maxWidth && `max-width: ${maxWidth}px;`}
 
-  @media screen and (max-width: 440px) {
+  @media (max-width: 440px) {
     font-size: 16px !important;
     line-height: 1.5 !important;
   }
@@ -102,11 +99,10 @@ const ContainerStyles = styled.div`
 
 const Container: FunctionComponent<Props & HTMLAttributes<HTMLDivElement>> = ({
   children,
-  width = sizes.innerWidth,
   ...props
 }) => {
   return (
-    <IeContainer width={width}>
+    <IeContainer maxWidth={props.maxWidth}>
       <ContainerStyles {...props}>{children}</ContainerStyles>
     </IeContainer>
   );

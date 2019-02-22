@@ -3,6 +3,7 @@ import React from "react";
 import Break from "./Break";
 import styled from "styled-components";
 import colors from "./colors";
+import fonts from "./fonts";
 import sizes from "./sizes";
 
 interface Props {
@@ -12,25 +13,23 @@ interface Props {
 
 const cellWidth = Math.round(sizes.innerWidth / 3) - 15 - sizes.gutter;
 
+const AdContainer = styled.div`
+  background: ${colors.asideBg};
+  padding: 15px;
+`;
+
 const AdTable = styled.table.attrs({
   cellPadding: 0,
   cellSpacing: 0
 })`
-  background: ${colors.asideBg};
-  border-collapse: separate;
-  padding: 15px;
   width: 100%;
+  background: ${colors.asideBg};
 
-  .ad-image {
-    background: ${colors.asideBg};
-    width: ${cellWidth}px;
-    max-width: 50%;
-    padding-right: ${sizes.gutter}px;
-    vertical-align: top;
+  .ad-content {
+    font-family: ${fonts.text};
+    min-width: 170px;
   }
-  img {
-    display: block;
-  }
+
   @media (max-width: 440px) {
     box-sizing: border-box !important;
 
@@ -40,18 +39,33 @@ const AdTable = styled.table.attrs({
     td {
       display: block !important;
     }
+  }
+`;
 
-    .ad-image {
-      width: 100% !important;
-      max-width: 100% !important;
-      padding-right: 0 !important;
-      padding-bottom: ${sizes.break}px !important;
-    }
+const AdImage = styled.td`
+  background: ${colors.asideBg};
+  width: ${cellWidth}px;
+  max-width: 50%;
+  vertical-align: top;
+
+  img {
+    display: block;
+  }
+
+  @media (max-width: 440px) {
+    width: 100% !important;
+    max-width: 100% !important;
 
     img {
       width: 100% !important;
     }
   }
+`;
+
+const AdBreak = styled.td.attrs({
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
+})`
+  width: ${sizes.gutter}px;
 `;
 
 const Ad: FunctionComponent<Props & HTMLAttributes<HTMLTableElement>> = ({
@@ -61,18 +75,23 @@ const Ad: FunctionComponent<Props & HTMLAttributes<HTMLTableElement>> = ({
   ...props
 }) => (
   <Fragment>
-    <AdTable {...props}>
-      <tbody>
-        <tr>
-          {src && alt && (
-            <td className="ad-image">
-              <img src={src} alt={alt} width={cellWidth} />
-            </td>
-          )}
-          <td>{children}</td>
-        </tr>
-      </tbody>
-    </AdTable>
+    <AdContainer>
+      <AdTable {...props}>
+        <tbody>
+          <tr>
+            {src && alt && (
+              <Fragment>
+                <AdImage>
+                  <img src={src} alt={alt} width={cellWidth} />
+                </AdImage>
+                <AdBreak />
+              </Fragment>
+            )}
+            <td className="ad-content">{children}</td>
+          </tr>
+        </tbody>
+      </AdTable>
+    </AdContainer>
     <Break />
   </Fragment>
 );

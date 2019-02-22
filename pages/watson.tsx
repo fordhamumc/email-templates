@@ -24,11 +24,11 @@ export default () => (
         alt="Fordham University"
         width="200"
       >
-        Office of the President
+        School or Department Name
       </Header>
       <Container>
         <Break className="large" />
-        <div className="inner">
+        <div className="inner" role="main">
           <Title>This Is The Title</Title>
           <DateLocation date="Wednesday, February 13 at 6 p.m.">
             Costantino Room | School of Law | Lincoln Center Campus
@@ -120,26 +120,30 @@ export default () => (
           <ImageLeft src="https://placehold.it/600x375" alt="s">
             <p>
               This is some test content. It's just a test to evaluate the look
-              and feel of typeset text. Replace this text with your content.
+              and feel of typeset text. Please make sure to replace this text
+              with your content.
             </p>
             <p>
-              This content shows how you can wrap the text around an image. Make
-              sure you have ample text between aligned images otherwise it will
-              not look right. Make sure your image is 600px wide so that it
-              looks good on both desktop and mobile.
+              This content shows how you can wrap the text around an image. The
+              image can be aligned either to the left or right. Make sure you
+              have ample text between aligned images otherwise it will not look
+              right. Your image should be 600px wide so that it looks good on
+              both desktop and mobile.
             </p>
           </ImageLeft>
 
           <ImageRight src="https://placehold.it/600x375" alt="s">
             <p>
               This is some test content. It's just a test to evaluate the look
-              and feel of typeset text. Replace this text with your content.
+              and feel of typeset text. Please make sure to replace this text
+              with your content.
             </p>
             <p>
-              This content shows how you can wrap the text around an image. Make
-              sure you have ample text between aligned images otherwise it will
-              not look right. Make sure your image is 600px wide so that it
-              looks good on both desktop and mobile.
+              This content shows how you can wrap the text around an image. The
+              image can be aligned either to the left or right. Make sure you
+              have ample text between aligned images otherwise it will not look
+              right. Your image should be 600px wide so that it looks good on
+              both desktop and mobile.
             </p>
           </ImageRight>
           <Button href="http://fordham.edu">Call to Action</Button>
@@ -163,7 +167,7 @@ export default () => (
           </Ad>
         </div>
       </Container>
-      <Footer />
+      <Footer role="contentinfo" />
     </Fragment>
   </EmailViewer>
 );

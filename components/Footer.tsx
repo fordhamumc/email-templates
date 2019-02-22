@@ -22,10 +22,9 @@ const FooterBar = styled.div.attrs({
 `;
 
 const FooterLogo = styled.div`
-  font-size: 1.8em;
-  letter-spacing: 0.09em;
-  line-height: 1.2;
   text-align: center;
+  font-size: 1.8em;
+  line-height: 1.2;
   text-transform: uppercase;
 
   @media (max-width: 440px) {
@@ -34,10 +33,9 @@ const FooterLogo = styled.div`
 `;
 
 const FooterTagline = styled.div`
+  text-align: center;
   font-family: ${fonts.link};
   font-size: 0.8em;
-  letter-spacing: 0.15em;
-  text-align: center;
   text-transform: uppercase;
 `;
 
@@ -66,11 +64,18 @@ const Footer: FunctionComponent<Props> = ({
   address = "441 East Fordham Road | Bronx, NY 10458",
   ...props
 }) => (
-  <Container {...props} className="footer" width={sizes.outerWidth}>
+  <Container {...props} className="footer" maxWidth={sizes.outerWidth}>
     <Break className="large" />
     <FooterBar />
-    <FooterLogo>{GetFooterLogo(name, logoUrl, logoWidth)}</FooterLogo>
-    <FooterTagline className="footer-tagline">{tagline}</FooterTagline>
+    <FooterLogo style={{ letterSpacing: "0.09em" }}>
+      {GetFooterLogo(name, logoUrl, logoWidth)}
+    </FooterLogo>
+    <FooterTagline
+      className="footer-tagline"
+      style={{ letterSpacing: "0.15em" }}
+    >
+      {tagline}
+    </FooterTagline>
     <Break className="small" />
     <FooterAddress className="footer-address">{address}</FooterAddress>
     <Break className="large" />

@@ -2,6 +2,7 @@ import React, { Fragment, FunctionComponent, isValidElement } from "react";
 import Break from "./Break";
 import { TitleArticle } from "./Titles";
 import styled from "styled-components";
+import fonts from "./fonts";
 import sizes from "./sizes";
 
 interface Props {
@@ -40,35 +41,40 @@ const TwoColumnStyle = styled.table.attrs({
   border: 0;
   width: 100%;
 
-  td {
-    width: 50%;
+  @media (max-width: 440px) {
+    &,
+    tbody,
+    tr {
+      display: block !important;
+      width: 100% !important;
+    }
   }
-  .col1 {
-    padding-right: ${sizes.gutter * 0.5}px;
-  }
-  .col2 {
-    padding-left: ${sizes.gutter * 0.5}px;
-  }
+`;
+
+const TwoColumnCell = styled.td`
+  font-family: ${fonts.text};
+  min-width: 150px;
 
   img {
     display: block;
   }
-
   @media (max-width: 440px) {
-    &,
-    tbody,
-    tr,
-    td {
-      display: block !important;
-      width: 100% !important;
-    }
-    .col1,
-    .col2 {
-      padding: 0 !important;
-    }
+    display: block !important;
+    width: 100% !important;
+
     img {
       width: 100% !important;
     }
+  }
+`;
+
+const TwoColumnBreak = styled.td.attrs({
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
+})`
+  width: ${sizes.gutter}px;
+
+  @media (max-width: 440px) {
+    display: none !important;
   }
 `;
 
@@ -76,14 +82,15 @@ const TwoColumn: FunctionComponent = ({ children, ...props }) => (
   <TwoColumnStyle role="presentation" {...props}>
     <tbody>
       <tr>
-        <td className="col1">
+        <TwoColumnCell>
           <Slot slot={1}>{children}</Slot>
           <Break />
-        </td>
-        <td className="col2">
+        </TwoColumnCell>
+        <TwoColumnBreak />
+        <TwoColumnCell>
           <Slot slot={2}>{children}</Slot>
           <Break />
-        </td>
+        </TwoColumnCell>
       </tr>
     </tbody>
   </TwoColumnStyle>

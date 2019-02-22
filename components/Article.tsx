@@ -2,6 +2,7 @@ import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
 import Break from "./Break";
 import { TitleArticle } from "./Titles";
 import styled from "styled-components";
+import fonts from "./fonts";
 import sizes from "./sizes";
 
 interface Props extends HTMLAttributes<HTMLTableElement> {
@@ -30,6 +31,10 @@ const ArticleTable = styled.table.attrs({
   }
   .article-header {
     height: 100%;
+    min-width: 200px;
+  }
+  .article-content {
+    font-family: ${fonts.text};
   }
   .article-image {
     padding-top: 2px;
@@ -87,7 +92,7 @@ const Article: FunctionComponent<Props> = ({
           </td>
         </tr>
         <tr>
-          <td>{children}</td>
+          <td className="article-content">{children}</td>
         </tr>
         {callToAction && (
           <tr>

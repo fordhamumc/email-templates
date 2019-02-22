@@ -13,23 +13,21 @@ interface Props {
   images: Image[];
 }
 
+const GridBreak = styled.td.attrs({
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
+})`
+  width: ${Math.round(sizes.gutter * 0.5)}px;
+
+  @media (max-width: 540px) {
+    display: none !important;
+  }
+`;
+
 const GridTable = styled.table.attrs({
   cellPadding: 0,
   cellSpacing: 0
 })`
   width: 100%;
-
-  td {
-    padding-right: ${Math.round(sizes.gutter * 0.5)}px;
-  }
-
-  td:last-child {
-    padding-right: 0;
-  }
-
-  img {
-    display: block;
-  }
 
   @media (max-width: 540px) {
     margin: ${Math.round(sizes.gutter * -0.25)}px !important;
@@ -41,13 +39,19 @@ const GridTable = styled.table.attrs({
     tr {
       display: block !important;
     }
+  }
+`;
 
-    td {
-      box-sizing: border-box !important;
-      display: inline-block !important;
-      padding: ${Math.round(sizes.gutter * 0.25)}px!important;
-      width: 49.5% !important;
-    }
+const GridCell = styled.td`
+  img {
+    display: block;
+  }
+
+  @media (max-width: 540px) {
+    box-sizing: border-box !important;
+    display: inline-block !important;
+    padding: ${Math.round(sizes.gutter * 0.25)}px!important;
+    width: 49.5% !important;
 
     img {
       width: 100% !important;
@@ -59,15 +63,18 @@ const Grid: FunctionComponent<Props & HTMLAttributes<HTMLTableElement>> = ({
   images = [],
   ...props
 }) => {
-  const cells = images.map(({ src, alt }) => {
+  const cells = images.map(({ src, alt }, index) => {
     const cellWidth = Math.round(
       (sizes.innerWidth - sizes.gutter * (images.length - 1) * 0.5) /
         images.length
     );
     return (
-      <td>
-        <img src={src} alt={alt} width={cellWidth} />
-      </td>
+      <Fragment>
+        {index > 0 && <GridBreak />}
+        <GridCell>
+          <img src={src} alt={alt} width={cellWidth} />
+        </GridCell>
+      </Fragment>
     );
   });
 
