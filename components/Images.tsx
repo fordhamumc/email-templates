@@ -19,7 +19,6 @@ const ImageTable: FunctionComponent<{
         <tr>
           <td>
             <img src={src} alt={alt} width={sizes.innerWidth / 3} />
-            <Break className="small" />
           </td>
         </tr>
       </tbody>
@@ -41,7 +40,7 @@ const AlignedImage = styled(ImageTable).attrs({
   }
 
   td {
-    padding: 5px ${sizes.gutter}px 0 0;
+    padding: 5px ${sizes.gutter}px 18px 0;
   }
 
   &.right td {
@@ -53,7 +52,7 @@ const AlignedImage = styled(ImageTable).attrs({
     max-width: 100% !important;
 
     td {
-      padding: 0 !important;
+      padding: 0 0 18px 0 !important;
     }
 
     img {

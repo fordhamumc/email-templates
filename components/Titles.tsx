@@ -10,10 +10,11 @@ interface Props extends HTMLAttributes<HTMLElement> {
 const TitleStyle = styled.h1`
   color: ${colors.primary};
   font-family: ${fonts.heading};
-  font-size: 3.7em;
+  font-size: 3.4em;
   font-weight: bold;
   line-height: 1.2;
   margin: 0;
+  text-transform: uppercase;
 
   @media (max-width: 440px) {
     font-size: 2.5em !important;
