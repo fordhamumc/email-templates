@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import styled, { createGlobalStyle } from "styled-components";
 
 interface Props {
-  codeOpen: boolean;
+  codeOpen?: boolean;
 }
 
 const GlobalStyle = createGlobalStyle`

@@ -1,11 +1,19 @@
 {
   "name": "email-templates",
   "version": "1.0.0",
+  "description": "An email builder that uses React to bring emails into a modern dev environment.",
+  "keywords": ["react", "email", "typescript"],
+  "homepage": "https://github.com/fordhamumc/email-templates",
+  "bugs": "https://github.com/fordhamumc/email-templates/issues",
+  "license": "MIT",
+  "author": "Michael Foley (https://michaeldfoley.com)",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fordhamumc/email-templates.git"
+  },
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js",
     "type-check": "tsc"
   },
   "dependencies": {
