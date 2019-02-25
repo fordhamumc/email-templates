@@ -69,7 +69,7 @@ const Grid: FunctionComponent<Props & HTMLAttributes<HTMLTableElement>> = ({
         images.length
     );
     return (
-      <Fragment>
+      <Fragment key={index}>
         {index > 0 && <GridBreak />}
         <GridCell>
           <img src={src} alt={alt} width={cellWidth} />
