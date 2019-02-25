@@ -45,7 +45,7 @@ class EmailViewer extends Component<{}, State> {
     super(props);
 
     this.state = {
-      codeOpen: true
+      codeOpen: false
     };
   }
   private handleCodeToggle = () => {
