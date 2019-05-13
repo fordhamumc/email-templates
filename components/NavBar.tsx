@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import colors from "./colors";
 import NavItem from "./NavItem";
 import styled from "styled-components";
+import { colors } from "./defaults";
 
 const Header = styled.header`
   background-color: ${colors.navbar};

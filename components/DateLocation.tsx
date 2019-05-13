@@ -1,30 +1,36 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import fonts from "./fonts";
-import Break from "./Break";
+import { fonts, sizes } from "./defaults";
 
 interface Props {
   date?: string;
 }
 
-const Date = styled.div`
-  font-family: ${fonts.heading};
-  font-size: 1.7em;
-  font-weight: bold;
-  line-height: 1.3;
+const Date = styled.strong.attrs({
+  className: "date"
+})`
+  font-size: 1.3em;
 
   @media (max-width: 440px) {
-    font-size: 1.25em !important;
+    &.date {
+      font-size: 1.15em !important;
+    }
   }
 `;
 
-const Location = styled.div`
+const DateLocationWrapper = styled.h2.attrs({
+  className: "date-location"
+})`
   font-family: ${fonts.heading};
   font-size: 1.3em;
-  line-height: 1.3;
+  font-weight: normal;
+  line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+  margin: 0;
 
   @media (max-width: 440px) {
-    font-size: 1.1em !important;
+    &.date-location {
+      font-size: 1.1em !important;
+    }
   }
 `;
 
@@ -33,12 +39,15 @@ const DateLocation: FunctionComponent<Props> = ({
   children,
   ...props
 }) => (
-  <div {...props}>
-    {date && <Date>{date}</Date>}
-    <Location>{children}</Location>
-    <Break />
-  </div>
+  <DateLocationWrapper {...props}>
+    {date && (
+      <Date>
+        {date}
+        <br />
+      </Date>
+    )}
+    {children}
+  </DateLocationWrapper>
 );
 
-export { Date, Location };
 export default DateLocation;

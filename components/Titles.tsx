@@ -1,30 +1,34 @@
 import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
 import styled from "styled-components";
-import colors from "./colors";
-import fonts from "./fonts";
+import { colors, fonts, sizes } from "./defaults";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   link?: string;
 }
 
-const TitleStyle = styled.h1`
+const TitleStyle = styled.h1.attrs({
+  className: "title"
+})`
   color: ${colors.primary};
   font-family: ${fonts.heading};
-  font-size: 3.4em;
+  font-size: 3.5em;
   font-weight: bold;
-  line-height: 1.2;
+  line-height: 1;
   margin: 0;
-  text-transform: uppercase;
+  padding-bottom: 5px;
 
   @media (max-width: 440px) {
-    font-size: 2.5em !important;
+    &.title {
+      font-size: 2.6em !important;
+      line-height: 1.1 !important;
+    }
   }
 `;
 const TitleArticleStyle = styled.h3`
   font-family: ${fonts.link};
   font-size: 1.15em;
   font-weight: bold;
-  line-height: 1.3;
+  line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
   margin: 0;
   padding-bottom: 5px;
 `;

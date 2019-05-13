@@ -1,7 +1,6 @@
 import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import sizes from "./sizes";
-import fonts from "./fonts";
+import { fonts, sizes } from "./defaults";
 
 const GlobalScaffold = createGlobalStyle`
   @font-face {
@@ -42,9 +41,9 @@ const GlobalScaffold = createGlobalStyle`
     Margin-bottom: 10px;
   }
   p {
-    Margin: 0 0 18px 0; 
+    Margin: 0 0 ${sizes.break}px 0;
   }
-  a {
+  a, .link {
     color: #900028;
     text-decoration: none;
     font-family: ${fonts.link};
@@ -55,7 +54,6 @@ const GlobalInner = createGlobalStyle`
   .inner {
     margin: 0 auto;
 	  max-width: ${sizes.innerWidth}px;
-    padding: 0 15px;
   }
 `;
 
@@ -82,28 +80,65 @@ const IeContainer: FunctionComponent<Props> = ({
   </Fragment>
 );
 
-const ContainerStyles = styled.div`
-  color: #231f20;
-  font-family: ${fonts.text};
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.6;
+const ContainerTable = styled.table.attrs({
+  cellPadding: 0,
+  cellSpacing: 0
+})`
+  ${({ maxWidth }: Props) => maxWidth && `max-width: ${maxWidth}px;`};
   margin: 0 auto;
-  ${({ maxWidth }: Props) => maxWidth && `max-width: ${maxWidth}px;`}
+  width: 100%;
+`;
 
-  @media (max-width: 440px) {
-    font-size: 16px !important;
-    line-height: 1.5 !important;
+const ContainerCell = styled.td.attrs({
+  className: "container"
+})`
+  &.container {
+    color: #231f20;
+    font-family: ${fonts.text};
+    font-size: ${sizes.fontSize}px;
+    font-weight: 400;
+    line-height: ${sizes.lineHeight};
+    padding: 0 15px;
+
+    @media (max-width: 440px) {
+      font-size: ${Math.round(sizes.fontSize * 0.9)}px !important;
+      line-height: ${(sizes.lineHeight * 0.95).toFixed(2)} !important;
+    }
   }
 `;
 
-const Container: FunctionComponent<Props & HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  ...props
-}) => {
+const BreakCell = styled.td.attrs({
+  dangerouslySetInnerHTML: { __html: "&nbsp;" }
+})`
+  line-height: ${sizes.breakLg}px;
+`;
+
+const Container: FunctionComponent<
+  Props &
+    HTMLAttributes<HTMLDivElement> & {
+      topPad?: boolean;
+      bottomPad?: boolean;
+    }
+> = ({ children, topPad = true, bottomPad = false, role, ...props }) => {
   return (
     <IeContainer maxWidth={props.maxWidth}>
-      <ContainerStyles {...props}>{children}</ContainerStyles>
+      <ContainerTable {...props}>
+        <tbody>
+          {topPad && (
+            <tr>
+              <BreakCell />
+            </tr>
+          )}
+          <tr>
+            <ContainerCell role={role}>{children}</ContainerCell>
+          </tr>
+          {bottomPad && (
+            <tr>
+              <BreakCell />
+            </tr>
+          )}
+        </tbody>
+      </ContainerTable>
     </IeContainer>
   );
 };

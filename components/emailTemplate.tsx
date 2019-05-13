@@ -1,4 +1,4 @@
-import fonts from "./fonts";
+import { fonts, sizes, colors } from "./defaults";
 
 interface Props {
   styles: string;
@@ -19,7 +19,6 @@ const emailTemplate = ({ styles, html, title }: Props) => {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="https://use.typekit.net/kfw1and.css" rel="stylesheet" type="text/css" />
     <!--<![endif]--> 
-    ${styles}
     <style data-embed>
       #outlook a {
         padding: 0;
@@ -53,24 +52,46 @@ const emailTemplate = ({ styles, html, title }: Props) => {
 
       img {
         border: 0;
-        height: auto;
+        height: auto !important;
         line-height: 100%;
         max-width: 100%;
         outline: none;
         text-decoration: none;
         -ms-interpolation-mode: bicubic;
       }
+      h1, h2, h3 {
+        font-family: ${fonts.heading};
+        font-weight: bold;
+        margin: 0;
+      }
+      h1 {
+        font-size: 3.5em;
+        line-height: 1;
+        padding-bottom: 5px;
+      }
+      h2 {
+        font-size: 1.69em;
+        line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+      }
+      h3 {
+        font-size: 1.15em;
+        line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+        padding-bottom: 5px;
+      }
       p {
         display: block;
-        Margin: 0 0 18px 0; 
+        Margin: 0 0 ${sizes.break}px 0; 
       }
       ul {
         Margin-top:0;
         Margin-bottom:0;
-        padding-bottom: 8px;
+        padding-bottom: ${Math.round(sizes.break - sizes.breakSm * 0.5)}px;
       }
       li {
-        Margin-bottom: 10px;
+        Margin-bottom: ${Math.round(sizes.breakSm * 0.5)}px;
+      }
+      hr {
+        border-top: 2px solid ${colors.rule};
       }
       a {
         color: #900028 !important;
@@ -78,22 +99,37 @@ const emailTemplate = ({ styles, html, title }: Props) => {
         font-family: ${fonts.link};
       }
       .footer a {
-        color: #231f20 !important
+        color: ${colors.text} !important;
         text-decoration: none;
         font-family: ${fonts.text};
       }
-      .footer-tagline a {
-        color: #231f20 !important
+      .footer__tagline a {
+        color: ${colors.text} !important;
         text-decoration: none;
         font-family: ${fonts.link};
       }
-      .footer-address a {
-        color: #594f51 !important;
+      .footer__address a {
+        color: ${colors.light} !important;
         text-decoration: none;
         font-family: ${fonts.text};
       }
-      .button {
+      .footer__links a {
+        color: ${colors.primary} !important;
+      }
+      .button,
+      .button a {
         color: #ffffff !important;
+        text-decoration: none;
+      }
+      
+      @media (max-width: 440px) {
+        h1 {
+          font-size: 2.6em !important;
+          line-height: 1.1 !important;
+        }
+        h2 {
+          font-size: 1.1em !important;
+        }
       }
     </style>
     <style data-embed>
@@ -116,8 +152,10 @@ const emailTemplate = ({ styles, html, title }: Props) => {
       }
       @media only screen and (max-width: 480px) {
         u ~ .body { min-width: 100vw; }
+        u ~ .body .container { padding: 0 !important; }
       }
     </style>
+    ${styles}
     <!--[if mso]>
     <xml>
     <o:OfficeDocumentSettings>

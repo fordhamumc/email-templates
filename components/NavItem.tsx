@@ -1,6 +1,6 @@
-import colors from "./colors";
 import Link from "next/link";
 import styled from "styled-components";
+import { colors } from "./defaults";
 
 const LI = styled.li`
   margin: 0;

@@ -1,9 +1,7 @@
 import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
-import Break from "./Break";
 import { TitleArticle } from "./Titles";
 import styled from "styled-components";
-import fonts from "./fonts";
-import sizes from "./sizes";
+import { fonts, sizes } from "./defaults";
 
 interface Props extends HTMLAttributes<HTMLTableElement> {
   title: string;
@@ -18,7 +16,8 @@ const imageWidthSmall = Math.round(imageWidth * 0.9);
 
 const ArticleTable = styled.table.attrs({
   cellSpacing: 0,
-  cellPadding: 0
+  cellPadding: 0,
+  className: props => `${props.className} article`
 })`
   border: 0;
   width: 100%;
@@ -26,44 +25,47 @@ const ArticleTable = styled.table.attrs({
   td {
     vertical-align: top;
   }
-  .article-link {
+  .article__link {
     padding-top: 5px;
   }
-  .article-header {
-    height: 100%;
+  .article__content {
+    font-family: ${fonts.text};
     min-width: 200px;
   }
-  .article-content {
-    font-family: ${fonts.text};
-  }
-  .article-image {
+  .article__image {
     padding-top: 2px;
     width: ${imageWidth + sizes.gutter}px;
   }
-  .article-image img {
+  .article__image img {
     display: block;
+    width: ${imageWidth}px;
   }
 
   @media (max-width: 540px) {
-    .article-image {
+    .article__image {
       width: ${imageWidthSmall + 32}px !important;
     }
-    .article-image img {
+    .article__image img {
       width: ${imageWidthSmall}px !important;
     }
   }
 
   @media (max-width: 440px) {
-    &,
-    tbody,
-    tr,
-    td {
-      display: block !important;
+    &.article {
+      &,
+      tbody,
+      tr,
+      td {
+        display: block !important;
+        width: 100% !important;
+      }
+    }
+    .article__image,
+    .article__image img {
       width: 100% !important;
     }
-    .article-image,
-    .article-image img {
-      width: 100% !important;
+    .article__image {
+      padding-bottom: ${sizes.breakSm}px;
     }
   }
 `;
@@ -82,21 +84,25 @@ const Article: FunctionComponent<Props> = ({
       <tbody>
         <tr>
           {imageUrl && alt && (
-            <td className="article-image" rowSpan={3}>
+            <td className="article__image">
               <img src={imageUrl} alt={alt} width={imageWidth} />
-              <Break className="small" />
             </td>
           )}
-          <td className="article-header">
+          <td className="article__content">
             <TitleArticle link={link}>{title}</TitleArticle>
+            {children}
+            {callToAction && (
+              <div className="article__link">
+                <a href={link} target="_blank">
+                  {callToAction}
+                </a>
+              </div>
+            )}
           </td>
-        </tr>
-        <tr>
-          <td className="article-content">{children}</td>
         </tr>
         {callToAction && (
           <tr>
-            <td className="article-link">
+            <td className="article__link">
               <a href={link} target="_blank">
                 {callToAction}
               </a>
@@ -105,7 +111,6 @@ const Article: FunctionComponent<Props> = ({
         )}
       </tbody>
     </ArticleTable>
-    <Break />
   </Fragment>
 );
 
