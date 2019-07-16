@@ -11,7 +11,7 @@ const TitleStyle = styled.h1.attrs({
 })`
   color: ${colors.primary};
   font-family: ${fonts.heading};
-  font-size: 3.5em;
+  font-size: 3em;
   font-weight: bold;
   line-height: 1;
   margin: 0;

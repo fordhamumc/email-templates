@@ -25,6 +25,7 @@ class NavBar extends Component {
           <NavList>
             <NavItem href="/">Home</NavItem>
             <NavItem href="/watson">Watson Template</NavItem>
+            <NavItem href="/president">President Template</NavItem>
           </NavList>
         </nav>
       </Header>
