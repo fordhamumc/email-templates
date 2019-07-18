@@ -30,7 +30,7 @@ const Main = styled.main`
   }
 `;
 
-const Layout: FunctionComponent<Props & HTMLAttributes<HTMLMainElement>> = ({
+const Layout: FunctionComponent<Props & HTMLAttributes<HTMLElement>> = ({
   children,
   codeOpen = true,
   ...props

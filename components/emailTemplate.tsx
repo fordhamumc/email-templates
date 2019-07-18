@@ -1,14 +1,26 @@
-import { fonts, sizes, colors } from "./defaults";
-
 interface Props {
   styles: string;
   html: string;
   title?: string;
+  stylesheets?: string | [string];
 }
 
-const emailTemplate = ({ styles, html, title }: Props) => {
+const emailTemplate = ({
+  styles,
+  html,
+  title,
+  stylesheets = "https://use.typekit.net/kfw1and.css"
+}: Props) => {
   const titleTag = title ? `<title>${title}</title>\n    ` : "";
-
+  let stylesheetLinks = "";
+  function createStylesheetLink(url: string) {
+    stylesheetLinks += `<link href="${url}" rel="stylesheet" type="text/css" />`;
+  }
+  if (Array.isArray(stylesheets)) {
+    stylesheets.forEach(createStylesheetLink);
+  } else {
+    createStylesheetLink(stylesheets);
+  }
   return `<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
@@ -17,8 +29,24 @@ const emailTemplate = ({ styles, html, title }: Props) => {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--[if !mso]><!-- -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://use.typekit.net/kfw1and.css" rel="stylesheet" type="text/css" />
+    ${stylesheetLinks}
     <!--<![endif]--> 
+    <style data-embed>
+    @font-face {
+      font-family: 'leitura roman';
+      src: url('https://emailprefs.fordham.edu/fnt/leitura-roman_1-webfont.woff2') format('woff2'),
+      url('https://emailprefs.fordham.edu/fnt/leitura-roman_1-webfont.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'leitura roman';
+      src: url('https://emailprefs.fordham.edu/fnt/leitura-roman_3-webfont.woff2') format('woff2'),
+      url('https://emailprefs.fordham.edu/fnt/leitura-roman_3-webfont.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    </style>
     <style data-embed>
       #outlook a {
         padding: 0;
@@ -60,61 +88,68 @@ const emailTemplate = ({ styles, html, title }: Props) => {
         -ms-interpolation-mode: bicubic;
       }
       h1, h2, h3 {
-        font-family: ${fonts.heading};
+        font-family: ${({ theme }) => theme.fonts.heading};
         font-weight: bold;
         margin: 0;
       }
       h1 {
-        font-size: 3.5em;
+        font-size: 3em;
         line-height: 1;
         padding-bottom: 5px;
       }
       h2 {
         font-size: 1.69em;
-        line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+        line-height: ${({ theme }) =>
+          (theme.sizes.lineHeight * 0.85).toFixed(2)};
       }
       h3 {
         font-size: 1.15em;
-        line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+        line-height: ${({ theme }) =>
+          (theme.sizes.lineHeight * 0.85).toFixed(2)};
         padding-bottom: 5px;
       }
       p {
         display: block;
-        Margin: 0 0 ${sizes.break}px 0; 
+        Margin: 0 0 ${({ theme }) => theme.sizes.break}px 0; 
       }
       ul {
         Margin-top:0;
         Margin-bottom:0;
-        padding-bottom: ${Math.round(sizes.break - sizes.breakSm * 0.5)}px;
+        padding-bottom: ${({ theme }) =>
+          Math.round(theme.sizes.break - theme.sizes.breakSm * 0.5)}px;
       }
       li {
-        Margin-bottom: ${Math.round(sizes.breakSm * 0.5)}px;
+        Margin-bottom: ${({ theme }) =>
+          Math.round(theme.sizes.breakSm * 0.5)}px;
       }
       hr {
-        border-top: 2px solid ${colors.rule};
+        border-top: 2px solid ${({ theme }) => theme.colors.rule};
       }
       a {
         color: #900028 !important;
         text-decoration: none;
-        font-family: ${fonts.link};
+        font-family: ${({ theme }) => theme.fonts.link};
+      }
+      strong {
+        font-weight: bold;
       }
       .footer a {
-        color: ${colors.text} !important;
+        color: ${({ theme }) => theme.colors.text} !important;
         text-decoration: none;
-        font-family: ${fonts.text};
+        font-family: ${({ theme }) => theme.fonts.text};
       }
       .footer__tagline a {
-        color: ${colors.text} !important;
+        color: ${({ theme }) => theme.colors.text} !important;
         text-decoration: none;
-        font-family: ${fonts.link};
+        font-family: ${({ theme }) => theme.fonts.link};
       }
       .footer__address a {
-        color: ${colors.light} !important;
+        color: ${({ theme }) => theme.colors.light} !important;
         text-decoration: none;
-        font-family: ${fonts.text};
+        font-family: ${({ theme }) => theme.fonts.text};
       }
       .footer__links a {
-        color: ${colors.primary} !important;
+        color: ${({ theme }) => theme.colors.primary} !important;
       }
       .button,
       .button a {
@@ -128,7 +163,7 @@ const emailTemplate = ({ styles, html, title }: Props) => {
           line-height: 1.1 !important;
         }
         h2 {
-          font-size: 1.1em !important;
+          font-size: 1.4em !important;
         }
       }
     </style>

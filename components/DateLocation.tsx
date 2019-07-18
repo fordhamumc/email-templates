@@ -1,14 +1,13 @@
 import React, { FunctionComponent } from "react";
 import styled from "styled-components";
-import { fonts, sizes } from "./defaults";
 
 interface Props {
   date?: string;
 }
 
-const Date = styled.strong.attrs({
-  className: "date"
-})`
+const Date = styled.strong.attrs(({ className }) => ({
+  className: `date ${className || ""}`
+}))`
   font-size: 1.3em;
 
   @media (max-width: 440px) {
@@ -18,13 +17,13 @@ const Date = styled.strong.attrs({
   }
 `;
 
-const DateLocationWrapper = styled.h2.attrs({
-  className: "date-location"
-})`
-  font-family: ${fonts.heading};
+const DateLocationWrapper = styled.h2.attrs(({ className }) => ({
+  className: `date-location ${className || ""}`
+}))`
+  font-family: ${({ theme }) => theme.fonts.heading};
   font-size: 1.3em;
   font-weight: normal;
-  line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+  line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.85).toFixed(2)};
   margin: 0;
 
   @media (max-width: 440px) {

@@ -40,7 +40,10 @@ const ToggleButton = styled.button`
   right: 1rem;
 `;
 
-class EmailViewer extends Component<{}, State> {
+class EmailViewer extends Component<
+  { stylesheets?: string | [string] },
+  State
+> {
   constructor(props) {
     super(props);
 
@@ -54,7 +57,7 @@ class EmailViewer extends Component<{}, State> {
     }));
   };
   public render() {
-    const { children } = this.props;
+    const { children, stylesheets } = this.props;
     return (
       <Layout className="grid" codeOpen={this.state.codeOpen}>
         <SimpleStorage parent={this} />
@@ -63,7 +66,7 @@ class EmailViewer extends Component<{}, State> {
         </Section>
         {this.state.codeOpen && (
           <SectionCode>
-            <Code>{children}</Code>
+            <Code stylesheets={stylesheets}>{children}</Code>
           </SectionCode>
         )}
         <ToggleButton onClick={this.handleCodeToggle}>

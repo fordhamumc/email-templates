@@ -1,7 +1,7 @@
 import React, { Fragment, FunctionComponent } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
+import { monokai } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import juice from "juice";
 import declassify from "declassify";
 import { html } from "js-beautify";
@@ -23,7 +23,10 @@ const syntaxStyle = {
   whiteSpace: "pre-wrap"
 };
 
-const Code: FunctionComponent = ({ children }) => {
+const Code: FunctionComponent<{ stylesheets: string | [string] }> = ({
+  stylesheets,
+  children
+}) => {
   StyleSheet.reset(true);
   const code: string = renderToStaticMarkup(<Fragment>{children}</Fragment>);
   const styleTags: string = StyleSheet.master.toHTML();
@@ -42,7 +45,7 @@ const Code: FunctionComponent = ({ children }) => {
           juice,
           declassify.process,
           html
-        )({ styles: styleTags, html: code })}
+        )({ stylesheets, styles: styleTags, html: code })}
       </SyntaxHighlighter>
     </Fragment>
   );

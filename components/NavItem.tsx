@@ -1,13 +1,12 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { colors } from "./defaults";
 
 const LI = styled.li`
   margin: 0;
 `;
 
 const A = styled.a`
-  color: ${colors.textalt};
+  color: #ffffff;
   display: inline-block;
   margin: 0.5rem 1rem;
   text-decoration: none;

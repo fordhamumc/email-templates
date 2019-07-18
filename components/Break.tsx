@@ -1,15 +1,19 @@
 import styled from "styled-components";
-import { sizes } from "./defaults";
 
 const Break = styled.div.attrs({
   dangerouslySetInnerHTML: { __html: "&nbsp;" }
 })`
-  line-height: ${sizes.break}px;
+  line-height: ${({ theme }) => theme.sizes.break}px;
   &.small {
-    line-height: ${sizes.breakSm}px;
+    line-height: ${({ theme }) => theme.sizes.breakSm}px;
   }
   &.large {
-    line-height: ${sizes.breakLg}px;
+    line-height: ${({ theme }) => theme.sizes.breakLg}px;
+  }
+  &.line {
+    border-top: 5px solid ${({ theme }) => theme.colors.lineBreak};
+    width: 50px;
+    max-width: 100%;
   }
 `;
 

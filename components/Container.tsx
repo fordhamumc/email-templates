@@ -1,22 +1,13 @@
-import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { fonts, sizes } from "./defaults";
+import React, {
+  Fragment,
+  FunctionComponent,
+  HTMLAttributes,
+  useContext
+} from "react";
+import styled, { createGlobalStyle, ThemeContext } from "styled-components";
+import { IThemeProps } from "./theme";
 
-const GlobalScaffold = createGlobalStyle`
-  @font-face {
-    font-family: 'leitura roman';
-    src: url('https://emailprefs.fordham.edu/fnt/leitura-roman_1-webfont.woff2') format('woff2'),
-    url('https://emailprefs.fordham.edu/fnt/leitura-roman_1-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'leitura roman';
-    src: url('https://emailprefs.fordham.edu/fnt/leitura-roman_3-webfont.woff2') format('woff2'),
-    url('https://emailprefs.fordham.edu/fnt/leitura-roman_3-webfont.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
+const GlobalScaffold = createGlobalStyle<IThemeProps>`
   .body {
 	  background-color:#ffffff;
     font-size: 16px;
@@ -35,25 +26,58 @@ const GlobalScaffold = createGlobalStyle`
   ul {
     Margin-top:0;
     Margin-bottom:0;
+    padding-left: 40px;
     padding-bottom: 8px;
   }
   li {
     Margin-bottom: 10px;
   }
+  h1, h2, h3 {
+    font-family: ${({ theme }) => theme.fonts.heading};
+    font-weight: bold;
+    margin: 0;
+  }
+  h1 {
+    font-size: 3em;
+    line-height: 1;
+    padding-bottom: 5px;
+  }
+  h2 {
+    font-size: 1.69em;
+    line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.85).toFixed(2)};
+  }
+  h3 {
+    font-size: 1.15em;
+    line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.85).toFixed(2)};
+    padding-bottom: 5px;
+  }
   p {
-    Margin: 0 0 ${sizes.break}px 0;
+    Margin: 0 0 ${({ theme }) => theme.sizes.break}px 0;
   }
   a, .link {
     color: #900028;
     text-decoration: none;
-    font-family: ${fonts.link};
+    font-family: ${({ theme }) => theme.fonts.link};
+  }
+  strong {
+    font-weight: bold;
+  }
+      
+  @media (max-width: 440px) {
+    h1 {
+      font-size: 2.6em !important;
+      line-height: 1.1 !important;
+    }
+    h2 {
+      font-size: 1.4em !important;
+    }
   }
 `;
 
-const GlobalInner = createGlobalStyle`
+const GlobalInner = createGlobalStyle<IThemeProps>`
   .inner {
     margin: 0 auto;
-	  max-width: ${sizes.innerWidth}px;
+	  max-width: ${({ theme }) => theme.sizes.innerWidth}px;
   }
 `;
 
@@ -61,24 +85,25 @@ interface Props {
   maxWidth?: number | string;
 }
 
-const IeContainer: FunctionComponent<Props> = ({
-  maxWidth = sizes.innerWidth,
-  children
-}) => (
-  <Fragment>
-    <div
-      dangerouslySetInnerHTML={{
-        __html: `<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="width:${maxWidth}px;" width="${maxWidth}"><tr><td style="font-size: 0;line-height: 0;mso-line-height-rule:exactly;"><div><![endif]-->`
-      }}
-    />
-    {children}
-    <div
-      dangerouslySetInnerHTML={{
-        __html: `<!--[if mso | IE]></div></td></tr></table><![endif]-->`
-      }}
-    />
-  </Fragment>
-);
+const IeContainer: FunctionComponent<Props> = ({ maxWidth, children }) => {
+  const theme = useContext(ThemeContext);
+  maxWidth = maxWidth || theme.sizes.innerWidth;
+  return (
+    <Fragment>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="width:${maxWidth}px;" width="${maxWidth}"><tr><td style="font-size: 0;line-height: 0;mso-line-height-rule:exactly;"><div><![endif]-->`
+        }}
+      />
+      {children}
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<!--[if mso | IE]></div></td></tr></table><![endif]-->`
+        }}
+      />
+    </Fragment>
+  );
+};
 
 const ContainerTable = styled.table.attrs({
   cellPadding: 0,
@@ -89,20 +114,22 @@ const ContainerTable = styled.table.attrs({
   width: 100%;
 `;
 
-const ContainerCell = styled.td.attrs({
-  className: "container"
-})`
+const ContainerCell = styled.td.attrs(({ className }) => ({
+  className: `container ${className || ""}`
+}))<{ weight?: number | string; sidePad?: number }>`
   &.container {
     color: #231f20;
-    font-family: ${fonts.text};
-    font-size: ${sizes.fontSize}px;
-    font-weight: 400;
-    line-height: ${sizes.lineHeight};
-    padding: 0 15px;
+    font-family: ${({ theme }) => theme.fonts.text};
+    font-size: ${({ theme }) => theme.sizes.fontSize}px;
+    font-weight: ${({ weight }) => weight};
+    line-height: ${({ theme }) => theme.sizes.lineHeight};
+    padding: 0 ${({ sidePad }) => sidePad}px;
 
     @media (max-width: 440px) {
-      font-size: ${Math.round(sizes.fontSize * 0.9)}px !important;
-      line-height: ${(sizes.lineHeight * 0.95).toFixed(2)} !important;
+      font-size: ${({ theme }) =>
+        Math.round(theme.sizes.fontSize * 0.9)}px !important;
+      line-height: ${({ theme }) =>
+        (theme.sizes.lineHeight * 0.95).toFixed(2)} !important;
     }
   }
 `;
@@ -110,7 +137,7 @@ const ContainerCell = styled.td.attrs({
 const BreakCell = styled.td.attrs({
   dangerouslySetInnerHTML: { __html: "&nbsp;" }
 })`
-  line-height: ${sizes.breakLg}px;
+  line-height: ${({ theme }) => theme.sizes.breakLg}px;
 `;
 
 const Container: FunctionComponent<
@@ -118,29 +145,39 @@ const Container: FunctionComponent<
     HTMLAttributes<HTMLDivElement> & {
       topPad?: boolean;
       bottomPad?: boolean;
+      sidePad?: number;
+      weight?: number | string;
     }
-> = ({ children, topPad = true, bottomPad = false, role, ...props }) => {
-  return (
-    <IeContainer maxWidth={props.maxWidth}>
-      <ContainerTable {...props}>
-        <tbody>
-          {topPad && (
-            <tr>
-              <BreakCell />
-            </tr>
-          )}
+> = ({
+  children,
+  topPad = true,
+  bottomPad = false,
+  role,
+  sidePad = 15,
+  weight = 400,
+  ...props
+}) => (
+  <IeContainer maxWidth={props.maxWidth}>
+    <ContainerTable {...props}>
+      <tbody>
+        {topPad && (
           <tr>
-            <ContainerCell role={role}>{children}</ContainerCell>
+            <BreakCell />
           </tr>
-          {bottomPad && (
-            <tr>
-              <BreakCell />
-            </tr>
-          )}
-        </tbody>
-      </ContainerTable>
-    </IeContainer>
-  );
-};
+        )}
+        <tr>
+          <ContainerCell role={role} sidePad={sidePad} weight={weight}>
+            {children}
+          </ContainerCell>
+        </tr>
+        {bottomPad && (
+          <tr>
+            <BreakCell />
+          </tr>
+        )}
+      </tbody>
+    </ContainerTable>
+  </IeContainer>
+);
 
 export { Container, IeContainer, GlobalScaffold, GlobalInner };

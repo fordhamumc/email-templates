@@ -1,13 +1,24 @@
-import React, { FunctionComponent } from "react";
-import styled from "styled-components";
-import { fonts, sizes, colors } from "./defaults";
+import React, { FunctionComponent, useContext } from "react";
+import styled, { ThemeContext } from "styled-components";
 
-const ButtonTable = styled.table.attrs({
+type SizeType = "small" | "large";
+
+interface Props {
+  background?: string;
+  borderColor?: string;
+  color?: string;
+  size?: SizeType;
+}
+
+const ButtonTable = styled.table.attrs(({ className }) => ({
   cellPadding: 0,
   cellSpacing: 0,
-  className: "button"
-})`
-  box-shadow: 4px 4px 0 0px ${colors.accent};
+  className: `button ${className || ""}`
+}))<{
+  borderColor: string;
+}>`
+  box-shadow: ${({ borderColor }) =>
+    borderColor === "transparent" ? "" : `4px 4px 0 0px ${borderColor}`};
   border: 0;
 
   &.button:active {
@@ -16,38 +27,72 @@ const ButtonTable = styled.table.attrs({
   }
 `;
 
-const ButtonCell = styled.td`
-  background-color: #900028;
-  border: 9px solid #900028;
-  border-width: 9px 30px;
-  color: #ffffff;
-  font-family: ${fonts.link};
-  font-size: 1.1em;
-  line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+const buttonPadding = (size: SizeType) => {
+  if (size === "small") {
+    return [7, 20];
+  } else if (size === "large") {
+    return [12, 40];
+  }
+  return [9, 30];
+};
+
+const buttonFontSize = (size: SizeType) => {
+  if (size === "small") {
+    return 0.85;
+  } else if (size === "large") {
+    return 1.3;
+  }
+  return 1.1;
+};
+
+const ButtonCell = styled.td<Props>`
+  background: ${({ background }) => background};
+  border: ${({ size }) => buttonPadding(size)[0]}px solid
+    ${({ background }) => background};
+  border-width: ${({ size }) =>
+    buttonPadding(size)
+      .map(x => x + "px")
+      .join(" ")};
+  color: ${({ color }) => color};
+  font-family: ${({ theme }) => theme.fonts.link};
+  font-size: ${({ size }) => buttonFontSize(size)}em;
+  line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.85).toFixed(2)};
   font-weight: bold;
   margin: 5px 0;
   text-align: center;
 
   a {
-    color: #ffffff;
+    color: ${({ color }) => color};
     text-decoration: none;
   }
 `;
 
-const Button: FunctionComponent<{ href: string }> = ({
+const Button: FunctionComponent<
+  Props & {
+    href: string;
+  }
+> = ({
   children,
   href,
+  background = "#900028",
+  borderColor,
+  color = "#ffffff",
+  size,
   ...props
-}) => (
-  <ButtonTable {...props} role="presentation">
-    <tbody>
-      <tr>
-        <ButtonCell>
-          <a href={href}>{children}</a>
-        </ButtonCell>
-      </tr>
-    </tbody>
-  </ButtonTable>
-);
+}) => {
+  const theme = useContext(ThemeContext);
+  borderColor = borderColor || theme.colors.accent;
+  return (
+    <ButtonTable {...props} role="presentation" borderColor={borderColor}>
+      <tbody>
+        <tr>
+          <ButtonCell background={background} color={color} size={size}>
+            <a href={href}>{children}</a>
+          </ButtonCell>
+        </tr>
+      </tbody>
+    </ButtonTable>
+  );
+};
 
 export default Button;

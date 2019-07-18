@@ -2,19 +2,20 @@ import React, {
   Fragment,
   FunctionComponent,
   HTMLAttributes,
-  ReactNode
+  ReactNode,
+  useContext
 } from "react";
-import styled from "styled-components";
+import styled, { ThemeContext } from "styled-components";
 import Break from "./Break";
 import { Container } from "./Container";
-import { colors, fonts, sizes } from "./defaults";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  name?: string;
-  tagline?: string;
+  name?: string | false;
+  tagline?: string | false;
   logoUrl?: string;
   logoWidth?: number | string;
-  address?: string;
+  address?: string | false;
+  border?: boolean;
 }
 
 const FooterBar = styled.div.attrs({
@@ -24,12 +25,12 @@ const FooterBar = styled.div.attrs({
   line-height: 25px;
 `;
 
-const FooterLogo = styled.div.attrs({
-  className: "footer__logo"
-})`
+const FooterLogo = styled.div.attrs(({ className }) => ({
+  className: `footer__logo ${className || ""}`
+}))`
   text-align: center;
   font-size: 1.8em;
-  line-height: ${(sizes.lineHeight * 0.75).toFixed(2)};
+  line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.75).toFixed(2)};
   text-transform: uppercase;
 
   @media (max-width: 440px) {
@@ -41,14 +42,15 @@ const FooterLogo = styled.div.attrs({
 
 const FooterTagline = styled.div`
   text-align: center;
-  font-family: ${fonts.link};
+  font-family: ${({ theme }) => theme.fonts.link};
   font-size: 0.8em;
   text-transform: uppercase;
 `;
 
 const FooterContent = styled.div`
-  color: ${colors.light};
+  color: ${({ theme }) => theme.colors.light};
   text-align: center;
+  font-family: ${({ theme }) => theme.fonts.text};
   font-size: 0.9em;
 `;
 
@@ -69,50 +71,70 @@ const Footer: FunctionComponent<Props> = ({
   logoUrl,
   logoWidth,
   address = "441 East Fordham Road | Bronx, NY 10458",
+  border = true,
   children,
   ...props
-}) => (
-  <Container
-    {...props}
-    className="footer"
-    maxWidth={sizes.outerWidth}
-    topPad={false}
-  >
-    <FooterBar />
-    <div className="inner">
-      <FooterLogo style={{ letterSpacing: "0.09em" }}>
-        {GetFooterLogo(name, logoUrl, logoWidth)}
-      </FooterLogo>
-      <FooterTagline
-        className="footer__tagline"
-        style={{ letterSpacing: "0.15em" }}
-      >
-        {tagline}
-      </FooterTagline>
-      <Break className="small" />
-      <FooterContent className="footer__address">{address}</FooterContent>
-      <Break className="small" />
-      <FooterContent className="footer__links">
-        {children || (
+}) => {
+  const theme = useContext(ThemeContext);
+  return (
+    <Container
+      {...props}
+      className="footer"
+      maxWidth={theme.sizes.outerWidth}
+      topPad={false}
+    >
+      {border && <FooterBar />}
+      <div className="inner">
+        {name && (
+          <FooterLogo style={{ letterSpacing: "0.09em" }}>
+            {GetFooterLogo(name, logoUrl, logoWidth)}
+          </FooterLogo>
+        )}
+        {tagline && (
+          <FooterTagline
+            className="footer__tagline"
+            style={{ letterSpacing: "0.15em" }}
+          >
+            {tagline}
+          </FooterTagline>
+        )}
+        {(name || tagline) && <Break className="small" />}
+        {address && (
           <Fragment>
-            <a href="#SPCLICKTOVIEW" name="View in Browser" xt="SPCLICKTOVIEW">
-              View this email in your browser.
-            </a>
+            <FooterContent className="footer__address">{address}</FooterContent>
             <Break className="small" />
-            <a
-              href="https://emailprefs.fordham.edu/?eid=%%RECIPIENT_ID%%&email=%%EMAIL%%"
-              name="Preference"
-              xt="SPCLICK"
-            >
-              Customize the types of emails you (%%EMAIL%%) receive from Fordham
-              or unsubscribe.
-            </a>
           </Fragment>
         )}
-      </FooterContent>
-    </div>
-    <Break className="large" />
-  </Container>
-);
+        <FooterContent className="footer__links">
+          {children || (
+            <Fragment>
+              {/* 
+              // @ts-ignore: ESP-specific code */}
+              <a
+                href="#SPCLICKTOVIEW"
+                name="View in Browser"
+                xt="SPCLICKTOVIEW"
+              >
+                View this email in your browser.
+              </a>
+              <Break className="small" />
+              {/* 
+              // @ts-ignore: ESP-specific code */}
+              <a
+                href="https://emailprefs.fordham.edu/?eid=%%RECIPIENT_ID%%&email=%%EMAIL%%"
+                name="Preference"
+                xt="SPCLICK"
+              >
+                Customize the types of emails you (%%EMAIL%%) receive from
+                Fordham or unsubscribe.
+              </a>
+            </Fragment>
+          )}
+        </FooterContent>
+      </div>
+      <Break className="large" />
+    </Container>
+  );
+};
 
 export default Footer;

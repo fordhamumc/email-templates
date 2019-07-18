@@ -1,24 +1,26 @@
-import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
+import React, {
+  Fragment,
+  FunctionComponent,
+  HTMLAttributes,
+  useContext
+} from "react";
 import { TitleArticle } from "./Titles";
-import styled from "styled-components";
-import { fonts, sizes } from "./defaults";
+import styled, { ThemeContext } from "styled-components";
 
 interface Props extends HTMLAttributes<HTMLTableElement> {
   title: string;
   link: string;
   imageUrl?: string;
   alt?: string;
+  imageWidth?: number;
   callToAction?: string;
 }
 
-const imageWidth = Math.round(sizes.innerWidth * 0.25);
-const imageWidthSmall = Math.round(imageWidth * 0.9);
-
-const ArticleTable = styled.table.attrs({
+const ArticleTable = styled.table.attrs(({ className }) => ({
   cellSpacing: 0,
   cellPadding: 0,
-  className: props => `${props.className} article`
-})`
+  className: `article ${className || ""}`
+}))`
   border: 0;
   width: 100%;
 
@@ -29,43 +31,49 @@ const ArticleTable = styled.table.attrs({
     padding-top: 5px;
   }
   .article__content {
-    font-family: ${fonts.text};
+    font-family: ${({ theme }) => theme.fonts.text};
     min-width: 200px;
-  }
-  .article__image {
-    padding-top: 2px;
-    width: ${imageWidth + sizes.gutter}px;
-  }
-  .article__image img {
-    display: block;
-    width: ${imageWidth}px;
-  }
-
-  @media (max-width: 540px) {
-    .article__image {
-      width: ${imageWidthSmall + 32}px !important;
-    }
-    .article__image img {
-      width: ${imageWidthSmall}px !important;
-    }
   }
 
   @media (max-width: 440px) {
     &.article {
       &,
-      tbody,
-      tr,
-      td {
+      & > tbody,
+      & > tbody > tr,
+      & > tbody > tr > td {
         display: block !important;
         width: 100% !important;
       }
     }
-    .article__image,
-    .article__image img {
-      width: 100% !important;
+  }
+`;
+
+const ArticleImageCell = styled.td.attrs(({ className }) => ({
+  className: `article__image ${className || ""}`
+}))<{ imageWidth?: number }>`
+  padding-top: 2px;
+  width: ${({ imageWidth, theme }) => imageWidth + theme.sizes.gutter}px;
+
+  img {
+    display: block;
+    width: ${({ imageWidth }) => imageWidth}px;
+  }
+
+  @media (max-width: 540px) {
+    width: ${({ imageWidth, theme }) =>
+      imageWidth * 0.9 + theme.sizes.gutter}px !important;
+
+    img {
+      width: ${({ imageWidth }) => imageWidth * 0.9}px !important;
     }
-    .article__image {
-      padding-bottom: ${sizes.breakSm}px;
+  }
+
+  @media (max-width: 440px) {
+    padding-bottom: ${({ theme }) => theme.sizes.breakSm}px;
+
+    &,
+    img {
+      width: 100% !important;
     }
   }
 `;
@@ -75,43 +83,42 @@ const Article: FunctionComponent<Props> = ({
   link,
   imageUrl,
   alt,
+  imageWidth,
   callToAction,
   children,
   ...props
-}) => (
-  <Fragment>
-    <ArticleTable role="presentation" {...props}>
-      <tbody>
-        <tr>
-          {imageUrl && alt && (
-            <td className="article__image">
-              <img src={imageUrl} alt={alt} width={imageWidth} />
-            </td>
-          )}
-          <td className="article__content">
-            <TitleArticle link={link}>{title}</TitleArticle>
-            {children}
-            {callToAction && (
-              <div className="article__link">
-                <a href={link} target="_blank">
-                  {callToAction}
-                </a>
-              </div>
-            )}
-          </td>
-        </tr>
-        {callToAction && (
+}) => {
+  const theme = useContext(ThemeContext);
+  imageWidth = imageWidth || Math.round(theme.sizes.innerWidth * 0.25);
+  return (
+    <Fragment>
+      <ArticleTable role="presentation" {...props}>
+        <tbody>
           <tr>
-            <td className="article__link">
-              <a href={link} target="_blank">
-                {callToAction}
-              </a>
+            {imageUrl && alt && (
+              <ArticleImageCell
+                className="article__image"
+                imageWidth={imageWidth}
+              >
+                <img src={imageUrl} alt={alt} width={imageWidth} />
+              </ArticleImageCell>
+            )}
+            <td className="article__content">
+              <TitleArticle link={link}>{title}</TitleArticle>
+              {children}
+              {callToAction && (
+                <div className="article__link">
+                  <a href={link} target="_blank">
+                    {callToAction}
+                  </a>
+                </div>
+              )}
             </td>
           </tr>
-        )}
-      </tbody>
-    </ArticleTable>
-  </Fragment>
-);
+        </tbody>
+      </ArticleTable>
+    </Fragment>
+  );
+};
 
 export default Article;

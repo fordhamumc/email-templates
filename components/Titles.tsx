@@ -1,16 +1,15 @@
 import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
 import styled from "styled-components";
-import { colors, fonts, sizes } from "./defaults";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   link?: string;
 }
 
-const TitleStyle = styled.h1.attrs({
-  className: "title"
-})`
-  color: ${colors.primary};
-  font-family: ${fonts.heading};
+const TitleStyle = styled.h1.attrs(({ className }) => ({
+  className: `title ${className || ""}`
+}))`
+  color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.fonts.heading};
   font-size: 3em;
   font-weight: bold;
   line-height: 1;
@@ -25,10 +24,10 @@ const TitleStyle = styled.h1.attrs({
   }
 `;
 const TitleArticleStyle = styled.h3`
-  font-family: ${fonts.link};
+  font-family: ${({ theme }) => theme.fonts.link};
   font-size: 1.15em;
   font-weight: bold;
-  line-height: ${(sizes.lineHeight * 0.85).toFixed(2)};
+  line-height: ${({ theme }) => (theme.sizes.lineHeight * 0.85).toFixed(2)};
   margin: 0;
   padding-bottom: 5px;
 `;

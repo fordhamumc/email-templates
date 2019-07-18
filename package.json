@@ -2,7 +2,11 @@
   "name": "email-templates",
   "version": "1.0.0",
   "description": "An email builder that uses React to bring emails into a modern dev environment.",
-  "keywords": ["react", "email", "typescript"],
+  "keywords": [
+    "react",
+    "email",
+    "typescript"
+  ],
   "homepage": "https://github.com/fordhamumc/email-templates",
   "bugs": "https://github.com/fordhamumc/email-templates/issues",
   "license": "MIT",
@@ -17,25 +21,25 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@zeit/next-typescript": "^1.1.1",
     "declassify": "^2.1.0",
-    "express": "^4.16.4",
-    "js-beautify": "^1.8.9",
-    "juice": "^5.1.0",
-    "next": "^7.0.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "express": "^4.17.1",
+    "js-beautify": "^1.10.1",
+    "juice": "^5.2.0",
+    "lodash": "^4.17.15",
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-simple-storage": "^1.4.1",
-    "react-syntax-highlighter": "^10.1.2",
-    "styled-components": "^4.0.0"
+    "react-syntax-highlighter": "^11.0.2",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@types/next": "^7.0.6",
-    "@types/react": "^16.7.21",
-    "@types/react-dom": "^16.0.11",
-    "@types/styled-components": "^4.1.8",
-    "babel-plugin-styled-components": "^1.8.0",
-    "prettier": "^1.16.1",
-    "typescript": "^3.2.4"
+    "@types/next": "^8.0.6",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/styled-components": "^4.1.18",
+    "babel-plugin-styled-components": "^1.10.6",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
   }
 }

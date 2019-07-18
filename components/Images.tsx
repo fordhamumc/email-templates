@@ -1,6 +1,10 @@
-import React, { Fragment, FunctionComponent, HTMLAttributes } from "react";
-import styled from "styled-components";
-import { sizes } from "./defaults";
+import React, {
+  Fragment,
+  FunctionComponent,
+  HTMLAttributes,
+  useContext
+} from "react";
+import styled, { ThemeContext } from "styled-components";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   src: string;
@@ -12,12 +16,13 @@ const ImageTable: FunctionComponent<{
   alt: string;
 }> = ({ src, alt, ...props }) => {
   if (!src || !alt) return null;
+  const theme = useContext(ThemeContext);
   return (
     <table {...props} role="presentation">
       <tbody>
         <tr>
           <td>
-            <img src={src} alt={alt} width={sizes.innerWidth / 3} />
+            <img src={src} alt={alt} width={theme.sizes.innerWidth / 3} />
           </td>
         </tr>
       </tbody>
@@ -29,23 +34,25 @@ const AlignedImage = styled(ImageTable).attrs({
   cellSpacing: 0,
   cellPadding: 0,
   align: "left",
-  className: "aligned-image"
+  className: `aligned-image`
 })`
   border: 0;
-  width: ${Math.round(sizes.innerWidth / 3)}px;
+  width: ${({ theme }) => Math.round(theme.sizes.innerWidth / 3)}px;
   max-width: 50%;
 
   img {
     display: block;
-    width: ${sizes.innerWidth / 3}px;
+    width: ${({ theme }) => theme.sizes.innerWidth / 3}px;
   }
 
   td {
-    padding: 5px ${sizes.gutter}px ${sizes.breakSm}px 0;
+    padding: ${({ theme }) =>
+      `5px ${theme.sizes.gutter}px ${theme.sizes.breakSm}px 0`};
   }
 
   &.right td {
-    padding: 5px 0 ${sizes.breakSm}px ${sizes.gutter}px;
+    padding: ${({ theme }) =>
+      `5px 0 ${theme.sizes.gutter}px ${theme.sizes.breakSm}px`};
   }
 
   @media (max-width: 440px) {
@@ -54,7 +61,7 @@ const AlignedImage = styled(ImageTable).attrs({
       max-width: 100% !important;
 
       td {
-        padding: 0 0 ${sizes.breakSm}px 0 !important;
+        padding: 0 0 ${({ theme }) => theme.sizes.breakSm}px 0 !important;
       }
 
       img {
@@ -67,16 +74,19 @@ const AlignedImage = styled(ImageTable).attrs({
 const ImageFullStyle = styled.div`
   img {
     display: block;
-    padding-top: 5px;
-    width: ${sizes.innerWidth}px;
+    margin: 0 auto;
+    width: ${({ theme }) => theme.sizes.innerWidth}px;
   }
 `;
 
-const ImageFull: FunctionComponent<Props> = ({ src, alt, ...props }) => (
-  <ImageFullStyle {...props}>
-    <img src={src} alt={alt} width={sizes.innerWidth} />
-  </ImageFullStyle>
-);
+const ImageFull: FunctionComponent<Props> = ({ src, alt, ...props }) => {
+  const theme = useContext(ThemeContext);
+  return (
+    <ImageFullStyle {...props}>
+      <img src={src} alt={alt} width={theme.sizes.innerWidth} />
+    </ImageFullStyle>
+  );
+};
 
 const ImageLeft: FunctionComponent<
   Props & { align?: string } & HTMLAttributes<HTMLDivElement>
