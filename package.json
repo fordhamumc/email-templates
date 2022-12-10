@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "declassify": "^2.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "js-beautify": "^1.10.1",
     "juice": "^5.2.0",
     "lodash": "^4.17.15",
